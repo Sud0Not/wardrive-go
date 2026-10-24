@@ -1,0 +1,31 @@
+name: Build APK (with fixes)
+on:
+  workflow_dispatch:
+  push:
+    paths: ['.github/workflows/build.yml']
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Apply local fixes (CARTO map key, masked API key fields)
+        env:
+          FIXES: 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
+        run: echo "$FIXES" | base64 -d | gunzip | git apply -v
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.10.2'
+      - run: gradle :app:assembleDebug --no-daemon
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="fixed-${{ github.run_number }}"
+          cp app/build/outputs/apk/debug/app-debug.apk "wardrive-go-$TAG.apk"
+          gh release create "$TAG" "wardrive-go-$TAG.apk" --title "Wardrive Go $TAG" --notes "Debug build of ${GITHUB_SHA::7} with local fixes: CARTO map key field, masked API key fields."
